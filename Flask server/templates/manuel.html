@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Manuel Control</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="container">
+	<a class="navbar-brand" href="#">Raspberry Pi Autonomous Vehicle</a>
+	<span class="navbar-text">Ahmet Yusuf & Ercan</span>
+      </div>
+    </nav>
+    <section class="container text-center clearfix">
+      <br>
+      <img id="bg" src="{{ url_for('video_manuel') }}" alt="Vehicle Video">
+      <br><br>
+      <div class="w-50 float-left">
+	<label>"F" to Forward</label>
+	<br>
+	<label>"L" to Left</label>
+	<img src="https://cdn.onlinewebfonts.com/svg/img_69904.png" style="max-width:20%">
+	<label>"R"to Right</label>
+	<br>
+	<label>"B" to Backward</label>
+	<br>
+	<br>
+	<label>"S" to Stop</label>
+      </div>
+      <div class="w-50 float-left">
+	<label>First Gear "1"</label>
+	<br><br>
+	<label>Second Gear "2"</label>
+	<br><br>
+	<label>Third Gear "3"</label>
+	<br><br>
+	<label>Fourth Gear "4"</label>
+	<br><br><br><br>
+      </div>
+      <div>
+      <input type="text" id="cmd" placeholder="Enter your command:" class=""> 
+      <input type="submit" id="submit" value="Send"> <br><br>
+      
+      </div>
+      Answer: <strong id="result">---</strong>
+      
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+
+    $(function() {
+        $('#submit').bind('click', function() {
+
+            $.ajax( {
+                url: '/manuelcmd',
+                type: 'POST',
+                data: {
+                    cmd : $('#cmd').val()
+                },
+                success: function ( donen_veri ) {
+                    $('#result').html(donen_veri)
+                },
+                error: function ( donen_veri ) {
+                    $('#result').html(donen_veri)
+                }
+            } );
+
+        });
+    });
+
+</script>
+  </body>
+</html>
